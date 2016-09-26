@@ -1,9 +1,12 @@
 Meteor.methods
 	claseTutorSendMessage: (school, level, line, secret, message) ->
-		unless secret is 'pepapig'
+		room_name = school + '_2016' + '_' + level + '_' + line
+
+		server_secret = Clase.Secrets.Get({_id: 'tutor_send_class/' + room_name})
+
+		unless secret is server_secret
 			throw new Meteor.Error 'wrong-secret', 'Secreto malo', { method: 'claseTutorSendMessage' }
 
-		room_name = school + '_2016' + '_' + level + '_' + line
 		tutor = RocketChat.models.Users.findOneById('tutor')
 
 		room = RocketChat.models.Rooms.findOneByName room_name
