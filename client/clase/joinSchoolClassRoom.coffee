@@ -80,6 +80,8 @@ Template.joinSchoolClassRoom.events
 				SideNav.closeFlex ->
 					instance.clearForm()
 
+				instance.clearForm()
+
 				FlowRouter.go 'channel', { name: result.name }
 		else
 			console.log err
@@ -97,3 +99,7 @@ Template.joinSchoolClassRoom.onCreated ->
 		instance.error.set([])
 		instance.roomName.set('')
 		instance.selectedUsers.set([])
+		instance.find('#clase-child-name').value = ''
+		instance.find('#clase-school').selectedIndex = 0
+		instance.find('#clase-level').selectedIndex = 0
+		instance.find('#clase-line').selectedIndex = 0
