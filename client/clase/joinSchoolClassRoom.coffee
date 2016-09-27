@@ -2,29 +2,19 @@ Template.joinSchoolClassRoom.helpers
 	schools: ->
 		return Clase.Schools.find()
 
+	passwordMode: ->
+		return 'hidden' unless Template.instance().passwordMode.get() is true
+
+	normalMode: ->
+		return 'hidden' unless Template.instance().passwordMode.get() is false
+
+	passwordRequired: ->
+		return 'required' unless Template.instance().passwordMode.get() is true
+
 	error: ->
 		return Template.instance().error.get()
 
 Template.joinSchoolClassRoom.events
-	'autocompleteselect #channel-members': (event, instance, doc) ->
-		instance.selectedUsers.set instance.selectedUsers.get().concat doc.username
-
-		instance.selectedUserNames[doc.username] = doc.name
-
-		event.currentTarget.value = ''
-		event.currentTarget.focus()
-
-	'click .remove-room-member': (e, instance) ->
-		self = @
-
-		users = Template.instance().selectedUsers.get()
-		users = _.reject Template.instance().selectedUsers.get(), (_id) ->
-			return _id is self.valueOf()
-
-		Template.instance().selectedUsers.set(users)
-
-		$('#channel-members').focus()
-
 	'click header': (e, instance) ->
 		SideNav.closeFlex ->
 			instance.clearForm()
@@ -54,15 +44,50 @@ Template.joinSchoolClassRoom.events
 			instance.$('.save-channel').click()
 
 	'click .clase-subscribe-class': (e, instance) ->
+		if (instance.passwordMode.get() is true)
+			instance.subscribeClass()
+			return
+		instance.passwordRequired (err, result) ->
+			if result
+				instance.passwordMode.set true
+			else
+				instance.subscribeClass()
+
+Template.joinSchoolClassRoom.onCreated ->
+	Meteor.subscribe 'claseSchools'
+	instance = this
+	instance.error = new ReactiveVar []
+	instance.roomName = new ReactiveVar ''
+	instance.passwordMode = new ReactiveVar false
+
+	instance.clearForm = ->
+		instance.error.set([])
+		instance.roomName.set('')
+		instance.passwordMode.set false
+
+		instance.find('#clase-child-name').value = ''
+		instance.find('#clase-school').selectedIndex = 0
+		instance.find('#clase-level').selectedIndex = 0
+		instance.find('#clase-line').selectedIndex = 0
+
+	instance.passwordRequired = (cb)->
+		school = instance.find('#clase-school').value
+		level = instance.find('#clase-level').value
+		line = instance.find('#clase-line').value
+
+		return Meteor.call 'createOrJoinSchoolClassPasswordRequired', school, level, line, cb
+
+	instance.subscribeClass = ->
 		err = SideNav.validate()
 		child_name = instance.find('#clase-child-name').value.toLowerCase().trim()
 		school = instance.find('#clase-school').value
 		level = instance.find('#clase-level').value
 		line = instance.find('#clase-line').value
+		password = instance.find('#clase-class-password').value
 
-		# instance.roomName.set name
+		instance.roomName.set child_name
 		if not err
-			Meteor.call 'createOrJoinSchoolClass', child_name, school, level, line, (err, result) ->
+			Meteor.call 'createOrJoinSchoolClass', child_name, school, level, line, password, (err, result) ->
 				if err
 					console.log err
 					if err.error is 'error-invalid-name'
@@ -73,6 +98,9 @@ Template.joinSchoolClassRoom.events
 						return
 					if err.error is 'error-archived-duplicate-name'
 						instance.error.set({ archivedduplicate: true })
+						return
+					if err.error is 'wrong-secret'
+						instance.error.set({ wrongSecret: true })
 						return
 					else
 						return handleError(err)
@@ -86,20 +114,3 @@ Template.joinSchoolClassRoom.events
 		else
 			console.log err
 			instance.error.set({ fields: err })
-
-Template.joinSchoolClassRoom.onCreated ->
-	Meteor.subscribe 'claseSchools'
-	instance = this
-	instance.selectedUsers = new ReactiveVar []
-	instance.selectedUserNames = {}
-	instance.error = new ReactiveVar []
-	instance.roomName = new ReactiveVar ''
-
-	instance.clearForm = ->
-		instance.error.set([])
-		instance.roomName.set('')
-		instance.selectedUsers.set([])
-		instance.find('#clase-child-name').value = ''
-		instance.find('#clase-school').selectedIndex = 0
-		instance.find('#clase-level').selectedIndex = 0
-		instance.find('#clase-line').selectedIndex = 0
