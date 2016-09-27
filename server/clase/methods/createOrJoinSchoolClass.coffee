@@ -76,12 +76,17 @@ joinRoom = (room, rid, user, userId, childName) ->
 	return true
 
 Meteor.methods
-	createOrJoinSchoolClass: (childName, school, level, line) ->
+	createOrJoinSchoolClass: (childName, school, level, line, secret) ->
 
 		#if not Meteor.userId()
 		#	throw new Meteor.Error 'error-invalid-user', "Invalid user", { method: 'createChannel' }
 
 		name = school + '_2016' + '_' + level + '_' + line
+
+		if Clase.Secrets.Exists('parent_join_class/' + name)
+			server_secret = Clase.Secrets.Get('parent_join_class/' + name)
+			unless secret is server_secret
+				throw new Meteor.Error 'wrong-secret', 'Secreto malo', { method: 'createOrJoinSchoolClass' }
 
 		room = RocketChat.models.Rooms.findOneByName name
 
