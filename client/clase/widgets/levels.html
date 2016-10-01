@@ -1,0 +1,8 @@
+<template name="claseLevelsSelector">
+	<label for="{{id}}">Selecione Nivel</label>
+	<select id="{{id}}" name="{{id}}">
+		{{#each levels}}
+			<option value="{{_id}}">{{label}}</option>
+		{{/each}}
+	</select>
+</template>
