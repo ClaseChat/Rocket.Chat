@@ -9,6 +9,8 @@ Meteor.startup ->
 			'message-mobile'
 		]
 		action: (event, instance) ->
+			unless confirm '¿Es este mensaje importante para otras madres y ese otro tipo que pasaba por ahí? Destacar un contenido no relevante puede molestar a otros.'
+				return
 			message = @_arguments[1]
 			message.pinned = true
 			Meteor.call 'pinMessage', message, (error, result) ->
@@ -67,7 +69,7 @@ Meteor.startup ->
 
 			if Array.isArray(room.usernames) && room.usernames.indexOf(Meteor.user().username) is -1
 				return false
-				
+
 			return true
 		order: 100
 
@@ -89,6 +91,6 @@ Meteor.startup ->
 
 			if Array.isArray(room.usernames) && room.usernames.indexOf(Meteor.user().username) is -1
 				return false
-				
+
 			return true
 		order: 101
