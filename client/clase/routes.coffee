@@ -35,7 +35,12 @@ FlowRouter.route '/claseHome',
 		BlazeLayout.render 'main', {center: 'claseHome'}
 		KonchatNotification.getDesktopPermission()
 
-FlowRouter.route '/asdgasdashfdsah/tutor/sender',
+FlowRouter.route '/asdgaashjrjjghdssdaasdladsljhgdasshfdsah/tutor/sender',
 	name: 'tutorSender'
 	action: ->
 		BlazeLayout.render 'tutorSender'
+
+FlowRouter.route '/asdgaspndsmdfghdashfklkndkjaskjghdsadsah/ampa/sender',
+	name: 'ampaSender'
+	action: ->
+		BlazeLayout.render 'ampaSender'

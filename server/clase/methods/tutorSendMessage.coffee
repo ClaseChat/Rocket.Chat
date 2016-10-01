@@ -15,8 +15,6 @@ Meteor.methods
 			room = RocketChat.models.Rooms.createWithTypeNameUserAndUsernames 'c', room_name, tutor, [],
 				ts: now
 
-		tutor = RocketChat.models.Users.findOneById('tutor')
-
 		message = RocketChat.models.Messages.createWithTypeRoomIdMessageAndUser 'tutor-message', room._id, message, tutor, {}
 
 		RocketChat.callbacks.run 'afterSaveMessage', message, room
