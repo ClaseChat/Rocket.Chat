@@ -9,7 +9,7 @@ Meteor.startup ->
 			'message-mobile'
 		]
 		action: (event, instance) ->
-			unless confirm '¿Es este mensaje importante para otras madres y ese otro tipo que pasaba por ahí? Destacar un contenido no relevante puede molestar a otros.'
+			unless confirm '¿Este es un mensaje importante? Destacar contenido no relevante puede molestar al resto del grupo'
 				return
 			message = @_arguments[1]
 			message.pinned = true

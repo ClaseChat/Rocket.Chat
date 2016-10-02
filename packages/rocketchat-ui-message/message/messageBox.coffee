@@ -78,7 +78,7 @@ Template.messageBox.events
 		if Meteor.user().clase?.highlightedOnly
 			event.stopPropagation()
 			event.preventDefault()
-			if confirm('Para poder escribir debe cambiar a la vista de todos los mensajes. ¿Desea ver todos los mensajes en vez de solo los destacados?')
+			if confirm('Para poder ver el mensaje que estás escribiendo debes salir del modo "destacado". ¿Cambiamos de modo?')
 				Meteor.call 'claseHighlightedOnlyToggle'
 
 	'click .join': (event) ->
