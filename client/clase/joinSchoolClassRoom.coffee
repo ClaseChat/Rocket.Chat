@@ -9,7 +9,7 @@ Template.joinSchoolClassRoom.helpers
 		return 'hidden' unless Template.instance().passwordMode.get() is false
 
 	passwordRequired: ->
-		return 'required' unless Template.instance().passwordMode.get() is true
+		return 'required' unless Template.instance().passwordMode.get() is false
 
 	error: ->
 		return Template.instance().error.get()
@@ -48,6 +48,7 @@ Template.joinSchoolClassRoom.events
 			instance.subscribeClass()
 			return
 		instance.passwordRequired (err, result) ->
+			console.log(result)
 			if result
 				instance.passwordMode.set true
 			else
