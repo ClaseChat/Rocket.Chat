@@ -19,6 +19,7 @@ Meteor.startup ->
 			{_id: '4secundaria', label: '4º secundaria'}
 			{_id: '1bachillerato', label: '1º bachillerato'}
 			{_id: '2bachillerato', label: '2º bachillerato'}
+			{_id: 'aula_especifica', label: 'Aula Específica'}
 			{_id: '1infantil_agrupado', label: 'Infantil agrupado 1'}
 			{_id: '2infantil_agrupado', label: 'Infantil agrupado 2'}
 			{_id: '3infantil_agrupado', label: 'Infantil agrupado 3'}
