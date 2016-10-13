@@ -25,7 +25,7 @@ Meteor.startup ->
 				return false
 
 			return RocketChat.authz.hasAtLeastOnePermission 'pin-message', message.rid
-		order: 20
+		order: -10
 
 	RocketChat.MessageAction.addButton
 		id: 'unpin-message'

@@ -3,6 +3,14 @@ Template.highlightedSelector.helpers
 		if Meteor.user().clase?.highlightedOnly
 			return 'icon-toggle-on favorite-room'
 		return 'icon-toggle-off'
+	textAllSelected: ->
+		if Meteor.user().clase?.highlightedOnly
+			return ''
+		return 'text-mode-selected'
+	textHighlightedOnlySelected: ->
+		if Meteor.user().clase?.highlightedOnly
+			return 'text-mode-selected'
+		return ''
 
 Template.highlightedSelector.events
 	'click .toggle-highlighted-only': (event) ->
