@@ -42,7 +42,7 @@ FlowRouter.route '/home',
 
 	action: ->
 		RocketChat.TabBar.showGroup 'home'
-		BlazeLayout.render 'main', {center: 'home'}
+		BlazeLayout.render 'main', {center: 'claseHome'}
 		KonchatNotification.getDesktopPermission()
 
 

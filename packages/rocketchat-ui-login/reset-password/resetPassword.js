@@ -40,7 +40,7 @@ Template.resetPassword.events({
 						type: 'error'
 					});
 				} else {
-					FlowRouter.go('home');
+					FlowRouter.go('claseHome');
 					toastr.success(t('Password_changed_successfully'));
 					RocketChat.callbacks.run('userPasswordReset');
 				}

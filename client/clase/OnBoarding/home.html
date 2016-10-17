@@ -7,9 +7,20 @@
 			</h2>
 		</header>
 			<div class="content" >
-				<p>¡Bienvenido a Clase!</p>
-				<p>Únete a una clase para mantenerte informado</p>
-				<button class="button-inverse" id="clase_add">Añadir hijo</button>
+				{{#if children}}
+					<p>Haz click en la clase de tu hij@</p>
+					<ul>
+						{{#each children}}
+							{{> chatRoomItem }}
+						{{/each}}
+					</ul>
+					<hr/>
+					<button class="button-inverse" id="clase_add">Añadir hijo</button>
+				{{else}}
+					<p>¡Bienvenido a Clase!</p>
+					<p>Únete a una clase para mantenerte informado</p>
+					<button class="button-inverse" id="clase_add">Añadir hijo</button>
+				{{/if}}
 			</div>
 	</section>
 </template>
