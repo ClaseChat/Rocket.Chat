@@ -35,3 +35,4 @@ Template.tutorSender.events
 					return
 			else
 				instance.error.set([])
+				instance.success.set(true)

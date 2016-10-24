@@ -25,6 +25,7 @@ Template.ampaSender.events
 		message = instance.find('#clase-message').value
 
 		Meteor.call 'claseAMPASendMessage', school, secret, message, (err, result) ->
+			console.log err, result
 			if err
 				console.log err
 				if err.error is 'wrong-secret'
@@ -33,3 +34,4 @@ Template.ampaSender.events
 					return
 			else
 				instance.error.set([])
+				instance.success.set(true)
