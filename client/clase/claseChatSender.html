@@ -1,0 +1,46 @@
+<template name="claseChatSender">
+	<section class="full-page">
+		<div class="wrapper">
+			<div>
+				{{ > loginHeader }}
+			</div>
+			<div id="login-card">
+				<div class="input-line">
+					<label for="clase-school">Selecione colegio</label>
+					<select id="clase-school" name="clase-school">
+						{{#each schools}}
+							<option value="{{_id}}">{{name}}</option>
+							{{/each}}
+						</select>
+				</div>
+
+				<div class="input-line">
+					<label for="clase-line">Clave</label>
+					<input id="clase-secret">
+				</div>
+
+				<div class="input-line">
+					<label for="clase-line">Mensaje</label>
+					<textarea id="clase-message"></textarea>
+				</div>
+
+				{{#if error.wrongSecret}}
+					<div class="input-error">
+						<strong>{{_ "Oops!"}}</strong>
+						El secreto no es correcto
+					</div>
+				{{/if}}
+				{{#if success}}
+					<div class="input-error">
+						<strong>Enviado!!</strong>
+					</div>
+				{{/if}}
+
+				<div class="input-submit">
+					<button class="button clean primary clase-ampa-sender">Enviar</button>
+					<button class="button clean cancel-channel">{{_ "Cancel" }}</button>
+				</div>
+			</div>
+		</div>
+	</section>
+</template>

@@ -44,3 +44,8 @@ FlowRouter.route '/asdgaspndsmdfghdashfklkndkjaskjghdsadsah/ampa/sender',
 	name: 'ampaSender'
 	action: ->
 		BlazeLayout.render 'ampaSender'
+
+FlowRouter.route '/asdgaopoasiyuelbjqwlghqweljgheqwgjhweqghjqweb/claseChat/sender',
+	name: 'claseChatSender'
+	action: ->
+		BlazeLayout.render 'claseChatSender'
