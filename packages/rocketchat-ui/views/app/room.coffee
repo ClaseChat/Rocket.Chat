@@ -429,6 +429,8 @@ Template.room.events
 
 
 Template.room.onCreated ->
+	Meteor.subscribe("basicUsersInfo")
+	Meteor.subscribe("UsersSubscriptions")
 	# this.scrollOnBottom = true
 	# this.typing = new msgTyping this.data._id
 	this.showUsersOffline = new ReactiveVar false

@@ -160,6 +160,15 @@ Template.message.helpers
 		prefs = Meteor.user()?.settings?.preferences
 		return if prefs?.hideUsernames
 
+	name: ->
+		user = RocketChat.models.Users.findOne({username: this.u.username})
+		return user.name
+
+	childName: ->
+		sub = RocketChat.models.Subscriptions.findOne({rid: this.rid, "u.username": this.u.username})
+		if sub
+			return sub.clase?.childName
+
 Template.message.onCreated ->
 	msg = Template.currentData()
 

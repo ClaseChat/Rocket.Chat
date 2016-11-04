@@ -25,11 +25,12 @@
 		<div class="message-cog-container {{hideCog}}">
 			<i class="icon-cog message-cog" aria-label="{{_ "Actions"}}"></i>
 		</div>
-		{{#if alias}}
+<!--		{{#if alias}}
 			<button type="button" class="user user-card-message" data-username="{{u.username}}" tabindex="1">{{alias}} <span class="message-alias">@{{u.username}}</span></button>
 		{{else}}
 			<button type="button" class="user user-card-message" data-username="{{u.username}}" tabindex="1">{{u.username}}</button>
-		{{/if}}
+		{{/if}} -->
+		<button type="button" class="user user-card-message" data-username="{{u.username}}" tabindex="1">{{#if name}}{{name}}{{else}}{{u.username}}{{/if}}{{#if childName}} ({{childName}}){{/if}}</button>
 		<span class="info">
 			<!--{{#each roleTags}}
 				<span class="role-tag" data-role="{{description}}">{{description}}</span>
